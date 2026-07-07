@@ -162,7 +162,7 @@ void contactAlert({
                               right: 8,
                               child: GestureDetector(
                                 onTap: () async {
-                                  final result = await FilePicker.platform
+                                  final result = await FilePicker
                                       .pickFiles(
                                         type: FileType.image,
                                         withData: true,

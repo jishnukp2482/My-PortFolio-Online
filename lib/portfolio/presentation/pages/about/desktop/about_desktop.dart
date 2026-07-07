@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:potfolio/portfolio/presentation/manager/controller/about/about_controller.dart';
+import 'package:potfolio/portfolio/presentation/pages/about/common/about_description_shimmer.dart';
 import 'package:potfolio/portfolio/presentation/pages/about/common/certificate_listview.dart';
 import 'package:potfolio/portfolio/presentation/pages/about/common/education_listview.dart';
 import 'package:potfolio/portfolio/presentation/pages/about/common/experience_listview.dart';
@@ -28,20 +29,28 @@ class _AboutDesktopState extends ConsumerState<AboutDesktop>
   late Animation<Offset> skillsSlideAnimation;
   @override
   void initState() {
-    certificationAnimationController =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 600));
-    certificationSlideAnimation = Tween<Offset>(
-      begin: Offset(0, 0.2),
-      end: Offset.zero,
-    ).animate(CurvedAnimation(
-        parent: certificationAnimationController, curve: Curves.easeOut));
-    skillsAnimationController =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 600));
-    skillsSlideAnimation = Tween<Offset>(
-      begin: Offset(0, 0.2),
-      end: Offset.zero,
-    ).animate(CurvedAnimation(
-        parent: skillsAnimationController, curve: Curves.easeOut));
+    certificationAnimationController = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 600),
+    );
+    certificationSlideAnimation =
+        Tween<Offset>(begin: Offset(0, 0.2), end: Offset.zero).animate(
+          CurvedAnimation(
+            parent: certificationAnimationController,
+            curve: Curves.easeOut,
+          ),
+        );
+    skillsAnimationController = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 600),
+    );
+    skillsSlideAnimation =
+        Tween<Offset>(begin: Offset(0, 0.2), end: Offset.zero).animate(
+          CurvedAnimation(
+            parent: skillsAnimationController,
+            curve: Curves.easeOut,
+          ),
+        );
     super.initState();
   }
 
@@ -103,7 +112,7 @@ class _AboutDesktopState extends ConsumerState<AboutDesktop>
                         ),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.black.withOpacity(0.3),
+                            color: Colors.black.withValues(alpha: 0.3),
                             blurRadius: 15.0,
                             spreadRadius: 2.0,
                             offset: Offset(0, 5),
@@ -119,9 +128,9 @@ class _AboutDesktopState extends ConsumerState<AboutDesktop>
                             child: Icon(
                               Icons.circle,
                               size: 40.w,
-                              color: Theme.of(context)
-                                  .primaryColor
-                                  .withOpacity(0.1),
+                              color: Theme.of(
+                                context,
+                              ).primaryColor.withValues(alpha: 0.1),
                             ),
                           ),
                           Positioned(
@@ -130,9 +139,9 @@ class _AboutDesktopState extends ConsumerState<AboutDesktop>
                             child: Icon(
                               Icons.circle,
                               size: 40.w,
-                              color: Theme.of(context)
-                                  .primaryColor
-                                  .withOpacity(0.1),
+                              color: Theme.of(
+                                context,
+                              ).primaryColor.withValues(alpha: 0.1),
                             ),
                           ),
 
@@ -151,7 +160,9 @@ class _AboutDesktopState extends ConsumerState<AboutDesktop>
                                   shadows: [
                                     Shadow(
                                       blurRadius: 2.0,
-                                      color: Colors.white.withOpacity(0.3),
+                                      color: Colors.white.withValues(
+                                        alpha: 0.3,
+                                      ),
                                       offset: Offset(0, 1),
                                     ),
                                   ],
@@ -180,8 +191,9 @@ class _AboutDesktopState extends ConsumerState<AboutDesktop>
                               Expanded(
                                 child: Center(
                                   child: Padding(
-                                    padding:
-                                        EdgeInsets.symmetric(horizontal: 95.w),
+                                    padding: EdgeInsets.symmetric(
+                                      horizontal: 95.w,
+                                    ),
                                     child: SocialMediaGridMenu(),
                                   ),
                                 ),
@@ -211,74 +223,75 @@ class _AboutDesktopState extends ConsumerState<AboutDesktop>
                     children: [
                       Text(
                         "About Me",
-                        style: GoogleFonts.inter(
-                            color: AppColors.appBlue,
-                            fontWeight: FontWeight.w700,
-                            letterSpacing: 2.w,
-                            fontSize: 25.sp),
+                        style: GoogleFonts.manrope(
+                          color: AppColors.appBlue,
+                          fontWeight: FontWeight.w700,
+                          letterSpacing: 2.w,
+                          fontSize: 25.sp,
+                        ),
                       ),
-                      SizedBox(
-                        height: 30.h,
-                      ),
-                      aboutDescription.isNotEmpty
-                          ? Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 20.w),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  color: Colors.grey[850]!.withOpacity(0.3),
-                                  borderRadius: BorderRadius.circular(10),
-                                  border: Border.all(
-                                    color: Theme.of(context)
-                                        .primaryColor
-                                        .withOpacity(0.1),
-                                    width: 1,
-                                  ),
-                                ),
-                                padding: EdgeInsets.all(16.w),
-                                child: Text(
-                                  aboutDescription,
-                                  textAlign: TextAlign.justify,
-                                  style: GoogleFonts.inter(
-                                      color: Theme.of(context)
-                                          .primaryColor
-                                          .withOpacity(0.8),
-                                      fontWeight: FontWeight.w400,
-                                      wordSpacing: 2.w,
-                                      fontSize: 17.sp),
-                                ),
-                              ),
-                            )
-                          : Container(
-                              alignment: Alignment.center,
-                              padding: EdgeInsets.all(30.w),
-                              child: Text(
-                                "About Not available",
-                                style: GoogleFonts.inter(
-                                  color: Colors.white.withOpacity(0.6),
-                                  fontSize: 16.sp,
-                                ),
+                      SizedBox(height: 30.h),
+
+                      if (aboutState.isLoading)
+                        const AboutDescriptionShimmer()
+                      else if (aboutDescription.isNotEmpty)
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 20.w),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: Colors.grey[850]!.withValues(alpha: 0.3),
+                              borderRadius: BorderRadius.circular(10),
+                              border: Border.all(
+                                color: Theme.of(
+                                  context,
+                                ).primaryColor.withValues(alpha: 0.1),
+                                width: 1,
                               ),
                             ),
-                      SizedBox(
-                        height: 55.h,
-                      ),
+                            padding: EdgeInsets.all(16.w),
+                            child: Text(
+                              aboutDescription,
+                              textAlign: TextAlign.justify,
+                              style: GoogleFonts.inter(
+                                color: Theme.of(
+                                  context,
+                                ).primaryColor.withValues(alpha: 0.8),
+                                fontWeight: FontWeight.w400,
+                                wordSpacing: 2.w,
+                                fontSize: 17.sp,
+                              ),
+                            ),
+                          ),
+                        )
+                      else
+                        Container(
+                          alignment: Alignment.center,
+                          padding: EdgeInsets.all(30.w),
+                          child: Text(
+                            "About Not available",
+                            style: GoogleFonts.inter(
+                              color: Colors.white.withValues(alpha: 0.6),
+                              fontSize: 16.sp,
+                            ),
+                          ),
+                        ),
+                      SizedBox(height: 55.h),
                       Text(
                         "Professional Experience",
-                        style: GoogleFonts.inter(
-                            color: AppColors.appBlue,
-                            fontWeight: FontWeight.w700,
-                            letterSpacing: 2.w,
-                            fontSize: 25.sp),
+                        style: GoogleFonts.manrope(
+                          color: AppColors.appBlue,
+                          fontWeight: FontWeight.w700,
+                          letterSpacing: 2.w,
+                          fontSize: 25.sp,
+                        ),
                       ),
                       ExperienceMenu(),
                     ],
                   ),
-                )
+                ),
               ],
             ),
-            SizedBox(
-              height: 145.h,
-            ),
+            SizedBox(height: 145.h),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -303,23 +316,23 @@ class _AboutDesktopState extends ConsumerState<AboutDesktop>
                           children: [
                             Text(
                               "Certifications",
-                              style: GoogleFonts.inter(
-                                  color: AppColors.appBlue,
-                                  fontWeight: FontWeight.w700,
-                                  letterSpacing: 2.w,
-                                  fontSize: 25.sp),
+                              style: GoogleFonts.manrope(
+                                color: AppColors.appBlue,
+                                fontWeight: FontWeight.w700,
+                                letterSpacing: 2.w,
+                                fontSize: 25.sp,
+                              ),
                             ),
                             CertificateDespTopMenu(),
-                            SizedBox(
-                              height: 100.h,
-                            ),
+                            SizedBox(height: 100.h),
                             Text(
                               "Education",
-                              style: GoogleFonts.inter(
-                                  color: AppColors.appBlue,
-                                  fontWeight: FontWeight.w700,
-                                  letterSpacing: 2.w,
-                                  fontSize: 25.sp),
+                              style: GoogleFonts.manrope(
+                                color: AppColors.appBlue,
+                                fontWeight: FontWeight.w700,
+                                letterSpacing: 2.w,
+                                fontSize: 25.sp,
+                              ),
                             ),
                             EducationMenu(),
                           ],
@@ -347,11 +360,12 @@ class _AboutDesktopState extends ConsumerState<AboutDesktop>
                           children: [
                             Text(
                               "Skills",
-                              style: GoogleFonts.inter(
-                                  color: AppColors.appBlue,
-                                  fontWeight: FontWeight.w700,
-                                  letterSpacing: 2.w,
-                                  fontSize: 25.sp),
+                              style: GoogleFonts.manrope(
+                                color: AppColors.appBlue,
+                                fontWeight: FontWeight.w700,
+                                letterSpacing: 2.w,
+                                fontSize: 25.sp,
+                              ),
                             ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,

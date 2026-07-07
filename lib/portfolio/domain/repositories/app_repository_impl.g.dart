@@ -10,12 +10,12 @@ part of 'app_repository_impl.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(getAppRepository)
-const getAppRepositoryProvider = GetAppRepositoryProvider._();
+final getAppRepositoryProvider = GetAppRepositoryProvider._();
 
 final class GetAppRepositoryProvider
     extends $FunctionalProvider<AppRepository, AppRepository, AppRepository>
     with $Provider<AppRepository> {
-  const GetAppRepositoryProvider._()
+  GetAppRepositoryProvider._()
     : super(
         from: null,
         argument: null,

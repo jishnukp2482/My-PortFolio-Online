@@ -10,11 +10,11 @@ part of 'project_controller.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(ProjectController)
-const projectControllerProvider = ProjectControllerProvider._();
+final projectControllerProvider = ProjectControllerProvider._();
 
 final class ProjectControllerProvider
     extends $NotifierProvider<ProjectController, ProjectState> {
-  const ProjectControllerProvider._()
+  ProjectControllerProvider._()
     : super(
         from: null,
         argument: null,
@@ -47,8 +47,7 @@ abstract class _$ProjectController extends $Notifier<ProjectState> {
   ProjectState build();
   @$mustCallSuper
   @override
-  void runBuild() {
-    final created = build();
+  WhenComplete runBuild() {
     final ref = this.ref as $Ref<ProjectState, ProjectState>;
     final element =
         ref.element
@@ -58,6 +57,6 @@ abstract class _$ProjectController extends $Notifier<ProjectState> {
               Object?,
               Object?
             >;
-    element.handleValue(ref, created);
+    return element.handleCreate(ref, build);
   }
 }

@@ -10,7 +10,7 @@ part of 'update_project_usecase.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(getUpdateProjectUsecase)
-const getUpdateProjectUsecaseProvider = GetUpdateProjectUsecaseProvider._();
+final getUpdateProjectUsecaseProvider = GetUpdateProjectUsecaseProvider._();
 
 final class GetUpdateProjectUsecaseProvider
     extends
@@ -20,7 +20,7 @@ final class GetUpdateProjectUsecaseProvider
           UpdateProjectUsecase
         >
     with $Provider<UpdateProjectUsecase> {
-  const GetUpdateProjectUsecaseProvider._()
+  GetUpdateProjectUsecaseProvider._()
     : super(
         from: null,
         argument: null,

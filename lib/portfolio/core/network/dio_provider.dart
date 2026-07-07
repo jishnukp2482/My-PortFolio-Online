@@ -9,7 +9,7 @@ class DioProvider {
   late Dio dio;
   DioProvider() {
     dio = Dio(BaseOptions(
-      baseUrl: ApiConstants.testBaseurl,
+      baseUrl: ApiConstants.baseurl,
       headers: {
         "Content-Type": "application/json",
         "Accept": "application/json",

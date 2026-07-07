@@ -10,12 +10,12 @@ part of 'appdata_source.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(getAppDataSource)
-const getAppDataSourceProvider = GetAppDataSourceProvider._();
+final getAppDataSourceProvider = GetAppDataSourceProvider._();
 
 final class GetAppDataSourceProvider
     extends $FunctionalProvider<AppDataSource, AppDataSource, AppDataSource>
     with $Provider<AppDataSource> {
-  const GetAppDataSourceProvider._()
+  GetAppDataSourceProvider._()
     : super(
         from: null,
         argument: null,

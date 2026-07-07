@@ -10,11 +10,11 @@ part of 'home_controller.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(HomeController)
-const homeControllerProvider = HomeControllerProvider._();
+final homeControllerProvider = HomeControllerProvider._();
 
 final class HomeControllerProvider
     extends $NotifierProvider<HomeController, HomeState> {
-  const HomeControllerProvider._()
+  HomeControllerProvider._()
     : super(
         from: null,
         argument: null,
@@ -47,8 +47,7 @@ abstract class _$HomeController extends $Notifier<HomeState> {
   HomeState build();
   @$mustCallSuper
   @override
-  void runBuild() {
-    final created = build();
+  WhenComplete runBuild() {
     final ref = this.ref as $Ref<HomeState, HomeState>;
     final element =
         ref.element
@@ -58,6 +57,6 @@ abstract class _$HomeController extends $Notifier<HomeState> {
               Object?,
               Object?
             >;
-    element.handleValue(ref, created);
+    return element.handleCreate(ref, build);
   }
 }

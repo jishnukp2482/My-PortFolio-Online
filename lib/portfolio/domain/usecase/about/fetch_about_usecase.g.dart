@@ -10,7 +10,7 @@ part of 'fetch_about_usecase.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(getFetchAboutUsecase)
-const getFetchAboutUsecaseProvider = GetFetchAboutUsecaseProvider._();
+final getFetchAboutUsecaseProvider = GetFetchAboutUsecaseProvider._();
 
 final class GetFetchAboutUsecaseProvider
     extends
@@ -20,7 +20,7 @@ final class GetFetchAboutUsecaseProvider
           FetchAboutUsecase
         >
     with $Provider<FetchAboutUsecase> {
-  const GetFetchAboutUsecaseProvider._()
+  GetFetchAboutUsecaseProvider._()
     : super(
         from: null,
         argument: null,

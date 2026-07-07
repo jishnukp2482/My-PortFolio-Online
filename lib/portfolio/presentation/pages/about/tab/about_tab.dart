@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:potfolio/portfolio/presentation/manager/controller/about/about_controller.dart';
+import 'package:potfolio/portfolio/presentation/pages/about/common/about_description_shimmer.dart';
 import 'package:potfolio/portfolio/presentation/pages/about/common/certificate_listview.dart';
 import 'package:potfolio/portfolio/presentation/pages/about/common/education_listview.dart';
 import 'package:potfolio/portfolio/presentation/pages/about/common/experience_listview.dart';
@@ -28,20 +29,28 @@ class _AboutTabState extends ConsumerState<AboutTab>
   late Animation<Offset> skillsSlideAnimation;
   @override
   void initState() {
-    certificationAnimationController =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 600));
-    certificationSlideAnimation = Tween<Offset>(
-      begin: Offset(0, 0.2),
-      end: Offset.zero,
-    ).animate(CurvedAnimation(
-        parent: certificationAnimationController, curve: Curves.easeOut));
-    skillsAnimationController =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 600));
-    skillsSlideAnimation = Tween<Offset>(
-      begin: Offset(0, 0.2),
-      end: Offset.zero,
-    ).animate(CurvedAnimation(
-        parent: skillsAnimationController, curve: Curves.easeOut));
+    certificationAnimationController = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 600),
+    );
+    certificationSlideAnimation =
+        Tween<Offset>(begin: Offset(0, 0.2), end: Offset.zero).animate(
+          CurvedAnimation(
+            parent: certificationAnimationController,
+            curve: Curves.easeOut,
+          ),
+        );
+    skillsAnimationController = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 600),
+    );
+    skillsSlideAnimation =
+        Tween<Offset>(begin: Offset(0, 0.2), end: Offset.zero).animate(
+          CurvedAnimation(
+            parent: skillsAnimationController,
+            curve: Curves.easeOut,
+          ),
+        );
     super.initState();
   }
 
@@ -92,12 +101,13 @@ class _AboutTabState extends ConsumerState<AboutTab>
                       borderRadius: BorderRadius.circular(20.w),
                       //  color: AppColors.brown
                       gradient: LinearGradient(
-                          colors: [
-                            Theme.of(context).primaryColorDark,
-                            AppColors.lightBlack,
-                          ],
-                          begin: Alignment.bottomCenter,
-                          end: Alignment.topCenter),
+                        colors: [
+                          Theme.of(context).primaryColorDark,
+                          AppColors.lightBlack,
+                        ],
+                        begin: Alignment.bottomCenter,
+                        end: Alignment.topCenter,
+                      ),
                     ),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -106,20 +116,20 @@ class _AboutTabState extends ConsumerState<AboutTab>
                         Text(
                           "Let's Connect",
                           style: GoogleFonts.birthstone(
-                              color: Theme.of(context).primaryColor,
-                              fontWeight: FontWeight.w800,
-                              letterSpacing: 2.w,
-                              fontSize: 45.sp),
+                            color: Theme.of(context).primaryColor,
+                            fontWeight: FontWeight.w800,
+                            letterSpacing: 2.w,
+                            fontSize: 45.sp,
+                          ),
                         ),
-                        SizedBox(
-                          height: 30.h,
-                        ),
+                        SizedBox(height: 30.h),
                         Expanded(
                           child: SizedBox(
-                              // color: AppColors.blue,
-                              width: 260.w,
-                              //height: 00.h,
-                              child: SocialMediaGridMenu()),
+                            // color: AppColors.blue,
+                            width: 260.w,
+                            //height: 00.h,
+                            child: SocialMediaGridMenu(),
+                          ),
                         ),
                       ],
                     ),
@@ -135,63 +145,65 @@ class _AboutTabState extends ConsumerState<AboutTab>
                       Text(
                         "About Me",
                         style: GoogleFonts.inter(
-                            color: AppColors.appBlue,
-                            fontWeight: FontWeight.w700,
-                            letterSpacing: 2.w,
-                            fontSize: 30.sp),
+                          color: AppColors.appBlue,
+                          fontWeight: FontWeight.w700,
+                          letterSpacing: 2.w,
+                          fontSize: 30.sp,
+                        ),
                       ),
-                      SizedBox(
-                        height: 30.h,
-                      ),
-                      aboutDescription.isNotEmpty
-                          ? Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 20.w),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  color: Colors.grey[850]!.withOpacity(0.3),
-                                  borderRadius: BorderRadius.circular(10),
-                                  border: Border.all(
-                                    color: Theme.of(context)
-                                        .primaryColor
-                                        .withOpacity(0.1),
-                                    width: 1,
-                                  ),
-                                ),
-                                padding: EdgeInsets.all(16.w),
-                                child: Text(
-                                  aboutDescription,
-                                  textAlign: TextAlign.justify,
-                                  style: GoogleFonts.inter(
-                                      color: Theme.of(context)
-                                          .primaryColor
-                                          .withOpacity(0.8),
-                                      fontWeight: FontWeight.w400,
-                                      wordSpacing: 2.w,
-                                      fontSize: 25.sp),
-                                ),
-                              ),
-                            )
-                          : Container(
-                              alignment: Alignment.center,
-                              padding: EdgeInsets.all(30.w),
-                              child: Text(
-                                "About Not available",
-                                style: GoogleFonts.inter(
-                                  color: Colors.white.withOpacity(0.6),
-                                  fontSize: 16.sp,
-                                ),
+                      SizedBox(height: 30.h),
+                      if (aboutState.isLoading)
+                        const AboutDescriptionShimmer()
+                      else if (aboutDescription.isNotEmpty)
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 20.w),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: Colors.grey[850]!.withValues(alpha: 0.3),
+                              borderRadius: BorderRadius.circular(10),
+                              border: Border.all(
+                                color: Theme.of(
+                                  context,
+                                ).primaryColor.withValues(alpha: 0.1),
+                                width: 1,
                               ),
                             ),
-                      SizedBox(
-                        height: 55.h,
-                      ),
+                            padding: EdgeInsets.all(16.w),
+                            child: Text(
+                              aboutDescription,
+                              textAlign: TextAlign.justify,
+                              style: GoogleFonts.inter(
+                                color: Theme.of(
+                                  context,
+                                ).primaryColor.withValues(alpha: 0.8),
+                                fontWeight: FontWeight.w400,
+                                wordSpacing: 2.w,
+                                fontSize: 25.sp,
+                              ),
+                            ),
+                          ),
+                        )
+                      else
+                        Container(
+                          alignment: Alignment.center,
+                          padding: EdgeInsets.all(30.w),
+                          child: Text(
+                            "About Not available",
+                            style: GoogleFonts.inter(
+                              color: Colors.white.withValues(alpha: 0.6),
+                              fontSize: 16.sp,
+                            ),
+                          ),
+                        ),
+                      SizedBox(height: 55.h),
                       Text(
                         "Professional Experience",
                         style: GoogleFonts.inter(
-                            color: AppColors.appBlue,
-                            fontWeight: FontWeight.w700,
-                            letterSpacing: 2.w,
-                            fontSize: 30.sp),
+                          color: AppColors.appBlue,
+                          fontWeight: FontWeight.w700,
+                          letterSpacing: 2.w,
+                          fontSize: 30.sp,
+                        ),
                       ),
                       ExperienceMenu(
                         roleTitleSize: 26.sp,
@@ -202,12 +214,10 @@ class _AboutTabState extends ConsumerState<AboutTab>
                       ),
                     ],
                   ),
-                )
+                ),
               ],
             ),
-            SizedBox(
-              height: 80.h,
-            ),
+            SizedBox(height: 80.h),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -233,10 +243,11 @@ class _AboutTabState extends ConsumerState<AboutTab>
                             Text(
                               "Certifications",
                               style: GoogleFonts.inter(
-                                  color: AppColors.appBlue,
-                                  fontWeight: FontWeight.w700,
-                                  letterSpacing: 2.w,
-                                  fontSize: 30.sp),
+                                color: AppColors.appBlue,
+                                fontWeight: FontWeight.w700,
+                                letterSpacing: 2.w,
+                                fontSize: 30.sp,
+                              ),
                             ),
                             CertificateDespTopMenu(
                               certificationSize: 25.sp,
@@ -244,16 +255,15 @@ class _AboutTabState extends ConsumerState<AboutTab>
                               bulletSize: 40.sp,
                               builderWidth: 800.w,
                             ),
-                            SizedBox(
-                              height: 100.h,
-                            ),
+                            SizedBox(height: 100.h),
                             Text(
                               "Education",
                               style: GoogleFonts.inter(
-                                  color: AppColors.appBlue,
-                                  fontWeight: FontWeight.w700,
-                                  letterSpacing: 2.w,
-                                  fontSize: 30.sp),
+                                color: AppColors.appBlue,
+                                fontWeight: FontWeight.w700,
+                                letterSpacing: 2.w,
+                                fontSize: 30.sp,
+                              ),
                             ),
                             EducationMenu(
                               instituteSize: 25.sp,
@@ -287,29 +297,32 @@ class _AboutTabState extends ConsumerState<AboutTab>
                             Text(
                               "Skills",
                               style: GoogleFonts.inter(
-                                  color: AppColors.appBlue,
-                                  fontWeight: FontWeight.w700,
-                                  letterSpacing: 2.w,
-                                  fontSize: 30.sp),
+                                color: AppColors.appBlue,
+                                fontWeight: FontWeight.w700,
+                                letterSpacing: 2.w,
+                                fontSize: 30.sp,
+                              ),
                             ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Expanded(
-                                    child: TechnicalSkillsMenu(
-                                  skillTitleSize: 26.sp,
-                                  skillSize: 25.sp,
-                                  bulletHeight: 1.h,
-                                  bulletSize: 40.sp,
-                                )),
+                                  child: TechnicalSkillsMenu(
+                                    skillTitleSize: 26.sp,
+                                    skillSize: 25.sp,
+                                    bulletHeight: 1.h,
+                                    bulletSize: 40.sp,
+                                  ),
+                                ),
                                 Expanded(
-                                    child: SoftSkillsMenu(
-                                  skillTitleSize: 26.sp,
-                                  skillSize: 25.sp,
-                                  bulletSize: 40.sp,
-                                  bulletHeight: 1.h,
-                                )),
+                                  child: SoftSkillsMenu(
+                                    skillTitleSize: 26.sp,
+                                    skillSize: 25.sp,
+                                    bulletSize: 40.sp,
+                                    bulletHeight: 1.h,
+                                  ),
+                                ),
                               ],
                             ),
                           ],

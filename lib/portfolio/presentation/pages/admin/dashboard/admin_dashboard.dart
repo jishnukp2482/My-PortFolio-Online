@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:flutter_material_design_icons/flutter_material_design_icons.dart';
 import 'package:potfolio/portfolio/domain/entities/admin/dashboard_grid_model.dart';
 import 'package:potfolio/portfolio/presentation/pages/home/common/shimmer_icon.dart';
 import 'package:potfolio/portfolio/presentation/routes/LocalStorageNames.dart';

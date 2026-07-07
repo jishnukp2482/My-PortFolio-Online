@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:potfolio/portfolio/presentation/manager/controller/about/about_controller.dart';
+import 'package:potfolio/portfolio/presentation/pages/about/common/about_description_shimmer.dart';
 import 'package:potfolio/portfolio/presentation/pages/about/common/certificate_listview.dart';
 import 'package:potfolio/portfolio/presentation/pages/about/common/education_listview.dart';
 import 'package:potfolio/portfolio/presentation/pages/about/common/experience_listview.dart';
@@ -27,20 +28,28 @@ class _AboutMobileState extends ConsumerState<AboutMobile>
   late Animation<Offset> skillsSlideAnimation;
   @override
   void initState() {
-    certificationAnimationController =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 600));
-    certificationSlideAnimation = Tween<Offset>(
-      begin: Offset(0, 0.2),
-      end: Offset.zero,
-    ).animate(CurvedAnimation(
-        parent: certificationAnimationController, curve: Curves.easeOut));
-    skillsAnimationController =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 600));
-    skillsSlideAnimation = Tween<Offset>(
-      begin: Offset(0, 0.2),
-      end: Offset.zero,
-    ).animate(CurvedAnimation(
-        parent: skillsAnimationController, curve: Curves.easeOut));
+    certificationAnimationController = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 600),
+    );
+    certificationSlideAnimation =
+        Tween<Offset>(begin: Offset(0, 0.2), end: Offset.zero).animate(
+          CurvedAnimation(
+            parent: certificationAnimationController,
+            curve: Curves.easeOut,
+          ),
+        );
+    skillsAnimationController = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 600),
+    );
+    skillsSlideAnimation =
+        Tween<Offset>(begin: Offset(0, 0.2), end: Offset.zero).animate(
+          CurvedAnimation(
+            parent: skillsAnimationController,
+            curve: Curves.easeOut,
+          ),
+        );
     super.initState();
   }
 
@@ -84,58 +93,59 @@ class _AboutMobileState extends ConsumerState<AboutMobile>
                 Text(
                   "About Me",
                   style: GoogleFonts.inter(
-                      color: AppColors.appBlue,
-                      fontWeight: FontWeight.w700,
-                      letterSpacing: 2.w,
-                      fontSize: 50.sp),
+                    color: AppColors.appBlue,
+                    fontWeight: FontWeight.w700,
+                    letterSpacing: 2.w,
+                    fontSize: 50.sp,
+                  ),
                 ),
-                SizedBox(
-                  height: 30.h,
-                ),
-                aboutDescription.isNotEmpty
-                    ? Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 20.w),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: Colors.grey[850]!.withOpacity(0.3),
-                            borderRadius: BorderRadius.circular(10),
-                            border: Border.all(
-                              color: Theme.of(context)
-                                  .primaryColor
-                                  .withOpacity(0.1),
-                              width: 1,
-                            ),
-                          ),
-                          padding: EdgeInsets.all(16.w),
-                          child: Text(
-                            aboutDescription,
-                            textAlign: TextAlign.justify,
-                            style: GoogleFonts.inter(
-                                color: Theme.of(context)
-                                    .primaryColor
-                                    .withOpacity(0.8),
-                                fontWeight: FontWeight.w400,
-                                wordSpacing: 2.w,
-                                fontSize: 45.sp),
-                          ),
-                        ),
-                      )
-                    : Container(
-                        alignment: Alignment.center,
-                        padding: EdgeInsets.all(30.w),
-                        child: Text(
-                          "About Not available",
-                          style: GoogleFonts.inter(
-                            color: Colors.white.withOpacity(0.6),
-                            fontSize: 16.sp,
-                          ),
+                SizedBox(height: 30.h),
+                if (aboutState.isLoading)
+                  const AboutDescriptionShimmer()
+                else if (aboutDescription.isNotEmpty)
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20.w),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.grey[850]!.withValues(alpha: 0.3),
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(
+                          color: Theme.of(
+                            context,
+                          ).primaryColor.withValues(alpha: 0.1),
+                          width: 1,
                         ),
                       ),
+                      padding: EdgeInsets.all(16.w),
+                      child: Text(
+                        aboutDescription,
+                        textAlign: TextAlign.justify,
+                        style: GoogleFonts.inter(
+                          color: Theme.of(
+                            context,
+                          ).primaryColor.withValues(alpha: 0.8),
+                          fontWeight: FontWeight.w400,
+                          wordSpacing: 2.w,
+                          fontSize: 45.sp,
+                        ),
+                      ),
+                    ),
+                  )
+                else
+                  Container(
+                    alignment: Alignment.center,
+                    padding: EdgeInsets.all(30.w),
+                    child: Text(
+                      "About Not available",
+                      style: GoogleFonts.inter(
+                        color: Colors.white.withValues(alpha: 0.6),
+                        fontSize: 16.sp,
+                      ),
+                    ),
+                  ),
               ],
             ),
-            SizedBox(
-              height: 80.h,
-            ),
+            SizedBox(height: 80.h),
             Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -143,10 +153,11 @@ class _AboutMobileState extends ConsumerState<AboutMobile>
                 Text(
                   "Professional Experience",
                   style: GoogleFonts.inter(
-                      color: AppColors.appBlue,
-                      fontWeight: FontWeight.w700,
-                      letterSpacing: 2.w,
-                      fontSize: 50.sp),
+                    color: AppColors.appBlue,
+                    fontWeight: FontWeight.w700,
+                    letterSpacing: 2.w,
+                    fontSize: 50.sp,
+                  ),
                 ),
                 ExperienceMenu(
                   roleTitleSize: 46.sp,
@@ -155,9 +166,7 @@ class _AboutMobileState extends ConsumerState<AboutMobile>
                   bulletHeight: 1.2.h,
                   bulletSize: 80.sp,
                 ),
-                SizedBox(
-                  height: 55.h,
-                ),
+                SizedBox(height: 55.h),
                 VisibilityDetector(
                   key: const Key('certifications-section'),
                   onVisibilityChanged: (info) {
@@ -177,10 +186,11 @@ class _AboutMobileState extends ConsumerState<AboutMobile>
                           Text(
                             "Certifications",
                             style: GoogleFonts.inter(
-                                color: AppColors.appBlue,
-                                fontWeight: FontWeight.w700,
-                                letterSpacing: 2.w,
-                                fontSize: 50.sp),
+                              color: AppColors.appBlue,
+                              fontWeight: FontWeight.w700,
+                              letterSpacing: 2.w,
+                              fontSize: 50.sp,
+                            ),
                           ),
                           CertificateDespTopMenu(
                             certificationSize: 45.sp,
@@ -188,16 +198,15 @@ class _AboutMobileState extends ConsumerState<AboutMobile>
                             bulletSize: 60.sp,
                             builderWidth: double.infinity.w,
                           ),
-                          SizedBox(
-                            height: 100.h,
-                          ),
+                          SizedBox(height: 100.h),
                           Text(
                             "Education",
                             style: GoogleFonts.inter(
-                                color: AppColors.appBlue,
-                                fontWeight: FontWeight.w700,
-                                letterSpacing: 2.w,
-                                fontSize: 50.sp),
+                              color: AppColors.appBlue,
+                              fontWeight: FontWeight.w700,
+                              letterSpacing: 2.w,
+                              fontSize: 50.sp,
+                            ),
                           ),
                           EducationMenu(
                             instituteSize: 45.sp,
@@ -210,9 +219,7 @@ class _AboutMobileState extends ConsumerState<AboutMobile>
                     ),
                   ),
                 ),
-                SizedBox(
-                  height: 55.h,
-                ),
+                SizedBox(height: 55.h),
                 VisibilityDetector(
                   key: const Key('skills-section'),
                   onVisibilityChanged: (info) {
@@ -232,10 +239,11 @@ class _AboutMobileState extends ConsumerState<AboutMobile>
                           Text(
                             "Skills",
                             style: GoogleFonts.inter(
-                                color: AppColors.appBlue,
-                                fontWeight: FontWeight.w700,
-                                letterSpacing: 2.w,
-                                fontSize: 50.sp),
+                              color: AppColors.appBlue,
+                              fontWeight: FontWeight.w700,
+                              letterSpacing: 2.w,
+                              fontSize: 50.sp,
+                            ),
                           ),
                           TechnicalSkillsMenu(
                             skillTitleSize: 46.sp,
@@ -243,9 +251,7 @@ class _AboutMobileState extends ConsumerState<AboutMobile>
                             bulletHeight: 1.2.h,
                             bulletSize: 60.sp,
                           ),
-                          SizedBox(
-                            height: 30.h,
-                          ),
+                          SizedBox(height: 30.h),
                           SoftSkillsMenu(
                             skillTitleSize: 46.sp,
                             skillSize: 45.sp,

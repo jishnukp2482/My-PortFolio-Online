@@ -10,7 +10,7 @@ part of 'delete_project_usecase.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(getDeleteProjectUsecase)
-const getDeleteProjectUsecaseProvider = GetDeleteProjectUsecaseProvider._();
+final getDeleteProjectUsecaseProvider = GetDeleteProjectUsecaseProvider._();
 
 final class GetDeleteProjectUsecaseProvider
     extends
@@ -20,7 +20,7 @@ final class GetDeleteProjectUsecaseProvider
           DeleteProjectUsecase
         >
     with $Provider<DeleteProjectUsecase> {
-  const GetDeleteProjectUsecaseProvider._()
+  GetDeleteProjectUsecaseProvider._()
     : super(
         from: null,
         argument: null,

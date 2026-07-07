@@ -10,7 +10,7 @@ part of 'check_orderid_availability_usecase.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(getCheckOrderIDAvailabilityUsecase)
-const getCheckOrderIDAvailabilityUsecaseProvider =
+final getCheckOrderIDAvailabilityUsecaseProvider =
     GetCheckOrderIDAvailabilityUsecaseProvider._();
 
 final class GetCheckOrderIDAvailabilityUsecaseProvider
@@ -21,7 +21,7 @@ final class GetCheckOrderIDAvailabilityUsecaseProvider
           CheckOrderIDAvailabilityUsecase
         >
     with $Provider<CheckOrderIDAvailabilityUsecase> {
-  const GetCheckOrderIDAvailabilityUsecaseProvider._()
+  GetCheckOrderIDAvailabilityUsecaseProvider._()
     : super(
         from: null,
         argument: null,

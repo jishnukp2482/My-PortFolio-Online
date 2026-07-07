@@ -10,12 +10,12 @@ part of 'login_usecase.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(getLoginUseCase)
-const getLoginUseCaseProvider = GetLoginUseCaseProvider._();
+final getLoginUseCaseProvider = GetLoginUseCaseProvider._();
 
 final class GetLoginUseCaseProvider
     extends $FunctionalProvider<LoginUsecase, LoginUsecase, LoginUsecase>
     with $Provider<LoginUsecase> {
-  const GetLoginUseCaseProvider._()
+  GetLoginUseCaseProvider._()
     : super(
         from: null,
         argument: null,

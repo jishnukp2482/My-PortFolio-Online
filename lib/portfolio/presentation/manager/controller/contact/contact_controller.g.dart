@@ -10,11 +10,11 @@ part of 'contact_controller.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(ContactController)
-const contactControllerProvider = ContactControllerProvider._();
+final contactControllerProvider = ContactControllerProvider._();
 
 final class ContactControllerProvider
     extends $NotifierProvider<ContactController, ContactState> {
-  const ContactControllerProvider._()
+  ContactControllerProvider._()
     : super(
         from: null,
         argument: null,
@@ -47,8 +47,7 @@ abstract class _$ContactController extends $Notifier<ContactState> {
   ContactState build();
   @$mustCallSuper
   @override
-  void runBuild() {
-    final created = build();
+  WhenComplete runBuild() {
     final ref = this.ref as $Ref<ContactState, ContactState>;
     final element =
         ref.element
@@ -58,6 +57,6 @@ abstract class _$ContactController extends $Notifier<ContactState> {
               Object?,
               Object?
             >;
-    element.handleValue(ref, created);
+    return element.handleCreate(ref, build);
   }
 }

@@ -10,13 +10,13 @@ part of 'projects_usecase.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(getProjectUseCase)
-const getProjectUseCaseProvider = GetProjectUseCaseProvider._();
+final getProjectUseCaseProvider = GetProjectUseCaseProvider._();
 
 final class GetProjectUseCaseProvider
     extends
         $FunctionalProvider<ProjectsUsecase, ProjectsUsecase, ProjectsUsecase>
     with $Provider<ProjectsUsecase> {
-  const GetProjectUseCaseProvider._()
+  GetProjectUseCaseProvider._()
     : super(
         from: null,
         argument: null,

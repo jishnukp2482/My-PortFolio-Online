@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:flutter_material_design_icons/flutter_material_design_icons.dart';
 import 'package:potfolio/portfolio/domain/entities/home/home_grid_modal.dart';
 import 'package:potfolio/portfolio/presentation/manager/controller/home/home_controller.dart';
 import 'package:potfolio/portfolio/presentation/themes/app_colors.dart';

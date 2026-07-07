@@ -10,7 +10,7 @@ part of 'delete_contact_usecase.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(getDeleteContactUsecase)
-const getDeleteContactUsecaseProvider = GetDeleteContactUsecaseProvider._();
+final getDeleteContactUsecaseProvider = GetDeleteContactUsecaseProvider._();
 
 final class GetDeleteContactUsecaseProvider
     extends
@@ -20,7 +20,7 @@ final class GetDeleteContactUsecaseProvider
           DeleteContactUsecase
         >
     with $Provider<DeleteContactUsecase> {
-  const GetDeleteContactUsecaseProvider._()
+  GetDeleteContactUsecaseProvider._()
     : super(
         from: null,
         argument: null,

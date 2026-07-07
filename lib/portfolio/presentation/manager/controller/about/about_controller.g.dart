@@ -10,11 +10,11 @@ part of 'about_controller.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(AboutController)
-const aboutControllerProvider = AboutControllerProvider._();
+final aboutControllerProvider = AboutControllerProvider._();
 
 final class AboutControllerProvider
     extends $NotifierProvider<AboutController, AboutState> {
-  const AboutControllerProvider._()
+  AboutControllerProvider._()
     : super(
         from: null,
         argument: null,
@@ -47,8 +47,7 @@ abstract class _$AboutController extends $Notifier<AboutState> {
   AboutState build();
   @$mustCallSuper
   @override
-  void runBuild() {
-    final created = build();
+  WhenComplete runBuild() {
     final ref = this.ref as $Ref<AboutState, AboutState>;
     final element =
         ref.element
@@ -58,6 +57,6 @@ abstract class _$AboutController extends $Notifier<AboutState> {
               Object?,
               Object?
             >;
-    element.handleValue(ref, created);
+    return element.handleCreate(ref, build);
   }
 }

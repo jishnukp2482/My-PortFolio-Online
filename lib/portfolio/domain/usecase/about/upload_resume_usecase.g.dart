@@ -10,7 +10,7 @@ part of 'upload_resume_usecase.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(getUploadResumeUseCase)
-const getUploadResumeUseCaseProvider = GetUploadResumeUseCaseProvider._();
+final getUploadResumeUseCaseProvider = GetUploadResumeUseCaseProvider._();
 
 final class GetUploadResumeUseCaseProvider
     extends
@@ -20,7 +20,7 @@ final class GetUploadResumeUseCaseProvider
           UploadResumeUseCase
         >
     with $Provider<UploadResumeUseCase> {
-  const GetUploadResumeUseCaseProvider._()
+  GetUploadResumeUseCaseProvider._()
     : super(
         from: null,
         argument: null,

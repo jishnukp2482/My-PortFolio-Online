@@ -44,9 +44,7 @@ class AboutController extends _$AboutController {
         errorMsg: "Failed to download resume",
       );
     } finally {
-      state = state.copyWith(
-        isLoading: false,
-      );
+      state = state.copyWith(isLoading: false);
     }
   }
 
@@ -100,9 +98,7 @@ class AboutController extends _$AboutController {
 
     state = state.copyWith(
       updatedAboutResponseModel: current.copyWith(
-        data: current.data.copyWith(
-          aboutDescription: updateDescription,
-        ),
+        data: current.data.copyWith(aboutDescription: updateDescription),
       ),
     );
   }
@@ -127,9 +123,7 @@ class AboutController extends _$AboutController {
     }
     state = state.copyWith(
       updatedAboutResponseModel: current.copyWith(
-        data: current.data.copyWith(
-          professionalExperience: updatedList,
-        ),
+        data: current.data.copyWith(professionalExperience: updatedList),
       ),
     );
   }
@@ -138,14 +132,12 @@ class AboutController extends _$AboutController {
     final current = state.updatedAboutResponseModel;
     if (current == null) return;
     final list = current.data.professionalExperience;
-    final updatedList = list
-        .where(
-          (element) => element.id != id,
-        )
-        .toList();
+    final updatedList = list.where((element) => element.id != id).toList();
     state = state.copyWith(
-        updatedAboutResponseModel: current.copyWith(
-            data: current.data.copyWith(professionalExperience: updatedList)));
+      updatedAboutResponseModel: current.copyWith(
+        data: current.data.copyWith(professionalExperience: updatedList),
+      ),
+    );
   }
 
   void updateCertifications(Certification newCertification) {
@@ -168,9 +160,7 @@ class AboutController extends _$AboutController {
     }
     state = state.copyWith(
       updatedAboutResponseModel: current.copyWith(
-        data: current.data.copyWith(
-          certifications: updatedList,
-        ),
+        data: current.data.copyWith(certifications: updatedList),
       ),
     );
   }
@@ -179,14 +169,12 @@ class AboutController extends _$AboutController {
     final current = state.updatedAboutResponseModel;
     if (current == null) return;
     final list = current.data.certifications;
-    final updatedList = list
-        .where(
-          (element) => element.id != id,
-        )
-        .toList();
+    final updatedList = list.where((element) => element.id != id).toList();
     state = state.copyWith(
-        updatedAboutResponseModel: current.copyWith(
-            data: current.data.copyWith(certifications: updatedList)));
+      updatedAboutResponseModel: current.copyWith(
+        data: current.data.copyWith(certifications: updatedList),
+      ),
+    );
   }
 
   void updateEducation(Education newEducation) {
@@ -209,9 +197,7 @@ class AboutController extends _$AboutController {
     }
     state = state.copyWith(
       updatedAboutResponseModel: current.copyWith(
-        data: current.data.copyWith(
-          educations: updatedList,
-        ),
+        data: current.data.copyWith(educations: updatedList),
       ),
     );
   }
@@ -220,14 +206,12 @@ class AboutController extends _$AboutController {
     final current = state.updatedAboutResponseModel;
     if (current == null) return;
     final list = current.data.educations;
-    final updatedList = list
-        .where(
-          (element) => element.id != id,
-        )
-        .toList();
+    final updatedList = list.where((element) => element.id != id).toList();
     state = state.copyWith(
-        updatedAboutResponseModel: current.copyWith(
-            data: current.data.copyWith(educations: updatedList)));
+      updatedAboutResponseModel: current.copyWith(
+        data: current.data.copyWith(educations: updatedList),
+      ),
+    );
   }
 
   void updateSkill(String newSkill, bool isTechnical) {
@@ -240,9 +224,7 @@ class AboutController extends _$AboutController {
       final updated = [...data.technicalSkills, newSkill];
       state = state.copyWith(
         updatedAboutResponseModel: current.copyWith(
-          data: current.data.copyWith(
-            technicalSkills: updated,
-          ),
+          data: current.data.copyWith(technicalSkills: updated),
         ),
       );
     } else {
@@ -250,9 +232,7 @@ class AboutController extends _$AboutController {
       final updated = [...data.softSkills, newSkill];
       state = state.copyWith(
         updatedAboutResponseModel: current.copyWith(
-          data: current.data.copyWith(
-            softSkills: updated,
-          ),
+          data: current.data.copyWith(softSkills: updated),
         ),
       );
     }
@@ -264,25 +244,21 @@ class AboutController extends _$AboutController {
 
     final data = current.data;
     final updatedTechnical = isTechnical
-        ? data.technicalSkills
-            .where(
-              (element) => element != skill,
-            )
-            .toList()
+        ? data.technicalSkills.where((element) => element != skill).toList()
         : data.technicalSkills;
 
     final updatedSoft = !isTechnical
-        ? data.softSkills
-            .where(
-              (element) => element != skill,
-            )
-            .toList()
+        ? data.softSkills.where((element) => element != skill).toList()
         : data.softSkills;
 
     state = state.copyWith(
-        updatedAboutResponseModel: current.copyWith(
-            data: current.data.copyWith(
-                softSkills: updatedSoft, technicalSkills: updatedTechnical)));
+      updatedAboutResponseModel: current.copyWith(
+        data: current.data.copyWith(
+          softSkills: updatedSoft,
+          technicalSkills: updatedTechnical,
+        ),
+      ),
+    );
   }
 
   Future<void> updateAbout(UpdateAboutRequestModel requestModal) async {
@@ -291,7 +267,9 @@ class AboutController extends _$AboutController {
       final updateAboutUsecase = ref.read(getUpdateAboutUseCaseProvider);
       var result = await updateAboutUsecase.build(requestModal);
       state = state.copyWith(
-          aboutResponseModel: result, updatedAboutResponseModel: result);
+        aboutResponseModel: result,
+        updatedAboutResponseModel: result,
+      );
       successPrint("update about successfully");
     } catch (e) {
       state = state.copyWith(errorMsg: CustomHelper.getErrorMessage(e));

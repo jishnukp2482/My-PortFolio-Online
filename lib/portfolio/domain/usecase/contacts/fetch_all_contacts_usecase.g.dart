@@ -10,7 +10,7 @@ part of 'fetch_all_contacts_usecase.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(getFetchAllContactsUsecase)
-const getFetchAllContactsUsecaseProvider =
+final getFetchAllContactsUsecaseProvider =
     GetFetchAllContactsUsecaseProvider._();
 
 final class GetFetchAllContactsUsecaseProvider
@@ -21,7 +21,7 @@ final class GetFetchAllContactsUsecaseProvider
           FetchAllContactsUsecase
         >
     with $Provider<FetchAllContactsUsecase> {
-  const GetFetchAllContactsUsecaseProvider._()
+  GetFetchAllContactsUsecaseProvider._()
     : super(
         from: null,
         argument: null,

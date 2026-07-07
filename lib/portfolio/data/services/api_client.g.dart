@@ -8,7 +8,7 @@ part of 'api_client.dart';
 // RetrofitGenerator
 // **************************************************************************
 
-// ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element,unnecessary_string_interpolations,unused_element_parameter,avoid_unused_constructor_parameters,unreachable_from_main
+// ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element,unnecessary_string_interpolations,unused_element_parameter,avoid_unused_constructor_parameters,unreachable_from_main,avoid_redundant_argument_values
 
 class _ApiClient implements ApiClient {
   _ApiClient(this._dio, {this.baseUrl, this.errorLogger});
@@ -581,12 +581,12 @@ class _ApiClient implements ApiClient {
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(getApiClient)
-const getApiClientProvider = GetApiClientProvider._();
+final getApiClientProvider = GetApiClientProvider._();
 
 final class GetApiClientProvider
     extends $FunctionalProvider<ApiClient, ApiClient, ApiClient>
     with $Provider<ApiClient> {
-  const GetApiClientProvider._()
+  GetApiClientProvider._()
     : super(
         from: null,
         argument: null,

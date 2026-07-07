@@ -10,7 +10,7 @@ part of 'download_resume_usecase.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(getDownloadUsecase)
-const getDownloadUsecaseProvider = GetDownloadUsecaseProvider._();
+final getDownloadUsecaseProvider = GetDownloadUsecaseProvider._();
 
 final class GetDownloadUsecaseProvider
     extends
@@ -20,7 +20,7 @@ final class GetDownloadUsecaseProvider
           DownloadResumeUseCase
         >
     with $Provider<DownloadResumeUseCase> {
-  const GetDownloadUsecaseProvider._()
+  GetDownloadUsecaseProvider._()
     : super(
         from: null,
         argument: null,

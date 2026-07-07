@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:ionicons/ionicons.dart';
-
+import 'package:flutter_ionicons/flutter_ionicons.dart';
 import '../../themes/app_colors.dart';
 
 class CustomTextField extends StatefulWidget {

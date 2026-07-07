@@ -10,7 +10,7 @@ part of 'create_contact_usecase.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(getCreateContactUsecase)
-const getCreateContactUsecaseProvider = GetCreateContactUsecaseProvider._();
+final getCreateContactUsecaseProvider = GetCreateContactUsecaseProvider._();
 
 final class GetCreateContactUsecaseProvider
     extends
@@ -20,7 +20,7 @@ final class GetCreateContactUsecaseProvider
           CreateContactUsecase
         >
     with $Provider<CreateContactUsecase> {
-  const GetCreateContactUsecaseProvider._()
+  GetCreateContactUsecaseProvider._()
     : super(
         from: null,
         argument: null,

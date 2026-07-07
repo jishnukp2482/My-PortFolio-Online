@@ -84,7 +84,7 @@ class _UploadResumePageState extends ConsumerState<UploadResumePage> {
       onTap: aboutState.isLoading
           ? null
           : () async {
-              final result = await FilePicker.platform.pickFiles(
+              final result = await FilePicker.pickFiles(
                 type: FileType.custom,
                 allowedExtensions: ['pdf'],
                 withData: true,
@@ -172,7 +172,7 @@ class _UploadResumePageState extends ConsumerState<UploadResumePage> {
                   onPressed: aboutState.isLoading
                       ? null
                       : () async {
-                          final result = await FilePicker.platform.pickFiles(
+                          final result = await FilePicker.pickFiles(
                             type: FileType.custom,
                             allowedExtensions: ['pdf'],
                             withData: true,
